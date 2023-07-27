@@ -1,0 +1,214 @@
+Experiment No: 2
+
+Aim: Implementation of vector and List data objects operations
+
+Theory:
+
+With R, it’s Important that one understand that there is a difference between the actual 
+
+R object and the manner in which that R object is printed to the console. Often, the printed 
+
+output may have additional bells and whistles to make the output more friendly to the users. 
+
+However, these bells and whistles are not inherently part of the object
+
+R has five basic or “atomic” classes of objects:
+
+• character
+
+• numeric (real numbers)
+
+• integer
+
+• complex
+
+• logical (True/False)
+
+The most basic type of R object is a vector. Empty vectors can be created with the 
+
+vector() function. There is really only one rule about vectors in R, which is that A vector can 
+
+only contain objects of the same class. But of course, like any good rule, there is an 
+
+exception, which is a list, which we will get to a bit later. A list is represented as a vector but 
+
+can contain objects of different classes. Indeed, that’s usually why we use them.
+
+There is also a class for “raw” objects, but they are not commonly used directly in data 
+
+analysis
+
+Creating Vectors
+
+The c() function can be used to create vectors of objects by concatenating things together.
+
+> x <- c(0.5, 0.6) ## numeric
+
+> x <- c(TRUE, FALSE) ## logical
+
+> x <- c(T, F) ## logical
+
+> x <- c("a", "b", "c") ## character
+
+> x <- 9:29 ## integer
+
+> x <- c(1+0i, 2+4i) ## complex
+Note that in the above example, T and F are short-hand ways to specify TRUE and FALSE. 
+
+However, in general one should try to use the explicit TRUE and FALSE values when 
+
+indicating logical values. The T and F values are primarily there for when you’re feeling lazy.
+
+You can also use the vect88or() function to initialize vectors.
+
+> x <- vector("numeric", length = 10)
+
+> x
+
+[1] 0 0 0 0 0 0 0 0 0 0
+
+A vector is an object that contains a set of values called its elements.
+
+Numeric vector
+
+x <- c(1,2,3,4,5,6)
+
+The operator <– is equivalent to "=" sign.
+
+Character vector
+
+State <- c("DL", "MU", "NY", "DL", "NY", "MU")
+
+To calculate frequency for State vector, you can use table function.
+
+To calculate mean for a vector, you can use mean function.
+
+Since the above vector contains a NA (not available) value, the mean function returns NA.
+
+To calculate mean for a vector excluding NA values, you can include na.rm = TRUE 
+You can use subscripts to refer elements of a vector.
+
+Convert a column "x" to numeric
+
+data$x = as.numeric(data$x)
+
+Some useful vectors can be created quickly with R. The colon operator is
+
+used to generate integer sequences
+
+> 1:10
+
+[1] 1 2 3 4 5 6 7 8 9 10
+
+7
+
+> -3:4
+
+[1] -3 -2 -1 0 1 2 3 4
+
+> 9:5
+
+[1] 9 8 7 6 5
+
+More generally, the function seq() can generate any arithmetic progression.
+
+> seq(from=2, to=6, by=0.4)
+
+[1] 2.0 2.4 2.8 3.2 3.6 4.0 4.4 4.8 5.2 5.6 6.0
+
+> seq(from=-1, to=1, length=6)
+
+[1] -1.0 -0.6 -0.2 0.2 0.6 1.0
+
+Sometimes it’s necessary to have repeated values, for which we use rep()
+
+> rep(5,3)
+
+[1] 5 5 5
+
+> rep(2:5,each=3)
+
+[1] 2 2 2 3 3 3 4 4 4 5 5 5
+
+> rep(-1:3, length.out=10)
+
+[1] -1 0 1 2 3 -1 0 1 2 3
+We can also use R’s vectorization to create more interesting sequences:
+
+> 2^(0:10)
+
+[1] 1 2 4 8 16 32 64 128 256 512 1024
+
+8
+
+> 1:3 + rep(seq(from=0,by=10,to=30), each=3)
+
+[1] 1 2 3 11 12 13 21 22 23 31 32 33
+
+Lists:
+
+A list allows you to store a variety of objects.
+
+You can use subscripts to select the specific component of the list.
+> x <- list(1:3, TRUE, "Hello", list(1:2, 5))
+
+Here x has 4 elements: a numeric vector, a logical, a string and another list.
+
+We can select an entry of x with double square brackets:
+
+> x[[3]]
+
+[1] "Hello"
+
+To get a sub-list, use single brackets:
+
+> x[c(1,3)]
+
+[[1]]
+
+[1] 1 2 3
+
+[[2]]
+
+[1] "Hello"
+
+Notice the difference between x[[3]] and x[3].
+
+We can also name some or all of the entries in our list, by supplying argument names to list():
+
+> x <- list(y=1:3, TRUE, z="Hello")
+
+> x
+
+$y
+
+[1] 1 2 3
+
+[[2]]
+
+[1] TRUE
+
+$z
+
+[1] "Hello"
+
+Notice that the [[1]] has been replaced by $y, which gives us a clue as to
+
+how we can recover the entries by their name. We can still use the numeric
+
+position if we prefer:
+
+> x$y
+
+[1] 1 2 3
+
+> x[[1]]
+[1] 1 2 3
+
+The function names() can be used to obtain a character vector of all the
+
+names of objects in a list.
+
+> names(x)
+
+[1] "y" "" "z"
