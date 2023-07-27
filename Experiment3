@@ -1,0 +1,247 @@
+Experiment No. 3
+
+Aim: Implementation of various operations on matrix, array and factors in R
+
+Theory:
+
+Matrices are much used in statistics, and so play an important role in R. To create a matrix 
+
+use the function matrix(), specifying elements by column first:
+
+> matrix(1:12, nrow=3, ncol=4)
+
+[,1] [,2] [,3] [,4]
+
+[1,] 1 4 7 10
+
+[2,] 2 5 8 11
+
+[3,] 3 6 9 12
+
+This is called column-major order. Of course, we need only give one of the dimensions:
+
+> matrix(1:12, nrow=3)
+
+unless we want vector recycling to help us:
+
+> matrix(1:3, nrow=3, ncol=4)
+
+[,1] [,2] [,3] [,4]
+
+[1,] 1 1 1 1
+
+[2,] 2 2 2 2
+
+[3,] 3 3 3 3
+
+Sometimes it’s useful to specify the elements by row first
+
+> matrix(1:12, nrow=3, byrow=TRUE)
+
+There are special functions for constructing certain matrices:
+
+> diag(3)
+
+[,1] [,2] [,3]
+
+[1,] 1 0 0
+
+[2,] 0 1 0
+
+[3,] 0 0 1
+>diag(1:3)
+
+[,1] [,2] [,3]
+
+[1,] 1 0 0
+
+[2,] 0 2 0
+
+[3,] 0 0 3
+
+> 1:5 %o% 1:5
+
+[,1] [,2] [,3] [,4] [,5]
+
+[1,] 1 2 3 4 5
+
+[2,] 2 4 6 8 10
+
+[3,] 3 6 9 12 15
+
+[4,] 4 8 12 16 20
+
+[5,] 5 10 15 20 25
+
+The last operator performs an outer product, so it creates a matrix with (i, j)-th entry xiyj . 
+
+The function outer() generalizes this to any function f on two arguments, to create a matrix 
+
+with entries f(xi , yj ). (More on functions later.)
+
+> outer(1:3, 1:4, "+")
+
+[,1] [,2] [,3] [,4]
+
+[1,] 2 3 4 5
+
+[2,] 3 4 5 6
+
+[3,] 4 5 6 7
+
+Matrix multiplication is performed using the operator %*%, which is quite
+
+distinct from scalar multiplication *.
+
+> A <- matrix(c(1:8,10), 3, 3)
+
+> x <- c(1,2,3)
+
+> A %*% x # matrix multiplication
+
+[,1]
+[1,] 30
+
+[2,] 36
+
+[3,] 45
+
+> A*x # NOT matrix multiplication
+
+[,1] [,2] [,3]
+
+[1,] 1 4 7
+
+[2,] 4 10 16
+
+[3,] 9 18 30
+
+Standard functions exist for common mathematical operations on matrices
+
+> t(A) # transpose
+
+[,1] [,2] [,3]
+
+[1,] 1 2 3
+
+[2,] 4 5 6
+
+[3,] 7 8 10
+
+> det(A) # determinant
+
+[1] -3
+
+> diag(A) # diagonal
+
+[1] 1 5 10
+
+> solve(A) # inverse
+
+[,1] [,2] [,3]
+
+[1,] -0.6667 -0.6667 1
+
+[2,] -1.3333 3.6667 -2
+
+[3,] 1.0000 -2.0000 1
+
+Array:
+
+Of course, if we have a data set consisting of more than two pieces of categorical information 
+
+about each subject, then a matrix is not sufficient. The generalization of matrices to higher
+dimensions is the array. Arrays are defined much like matrices, with a call to the array() 
+
+command. Here is a 2 × 3 × 3 array:
+
+> arr = array(1:18, dim=c(2,3,3))
+
+> arr
+
+, , 1
+
+[,1] [,2] [,3]
+
+[1,] 1 3 5
+
+[2,] 2 4 6
+
+, , 2
+
+[,1] [,2] [,3]
+
+[1,] 7 9 11
+
+[2,] 8 10 12
+
+, , 3
+
+[,1] [,2] [,3]
+
+[1,] 13 15 17
+
+[2,] 14 16 18
+
+Each 2-dimensional slice defined by the last co-ordinate of the array is shown as a 2 × 3 
+
+matrix. Note that we no longer specify the number of rows and columns separately, but use a 
+
+single vector dim whose length is the number of dimensions. You can recover this vector 
+
+with the dim() function.
+
+> dim(arr)
+
+[1] 2 3 3
+
+Note that a 2-dimensional array is identical to a matrix. Arrays can be
+
+subsetted and modified in exactly the same way as a matrix, only using the
+
+appropriate number of co-ordinates:
+
+> arr[1,2,3]
+
+[1] 15
+
+> arr[,2,]
+[,1] [,2] [,3]
+
+[1,] 3 9 15
+
+[2,] 4 10 16
+
+> arr[1,1,] = c(0,-1,-2) # change some values
+
+> arr[,,1,drop=FALSE]
+
+, , 1
+
+[,1] [,2] [,3]
+
+[1,] 0 3 5
+
+[2,] 2 4 6
+
+Factors
+
+R has a special data structure to store categorical variables. It tells R that a variable is 
+
+nominal or ordinal by making it a factor.
+
+Simplest form of the factor function : 
+
+Ideal form of the factor function :
+
+The factor function has three parameters:
+
+1. Vector Name 
+
+2. Values (Optional)
+
+3. Value labels (Optional)
+
+Convert a column "x" to factor
+
+data$x = as.factor(data$x)
